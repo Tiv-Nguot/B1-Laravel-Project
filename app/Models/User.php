@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Str;
 
 class User extends Authenticatable
 {
@@ -25,6 +26,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_verified_at',
+        'remember_token',
     ];
 
     /**
@@ -48,5 +51,21 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+    public static function register($request, $id = null)
+    {
+        $data = $request->only([
+            'name',
+            'email',
+            'password',
+            'email_verified_at',
+            'remember_token',
+        ]);
+
+        $data['password'] = bcrypt($request->password);
+        $data['email_verified_at'] = now();
+        $data['remember_token'] = Str::random(20);
+
+        return self::updateOrCreate(['id' => $id], $data);
     }
 }
