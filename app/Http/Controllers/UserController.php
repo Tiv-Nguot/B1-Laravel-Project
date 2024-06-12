@@ -10,8 +10,8 @@ class UserController extends Controller
     public function me(Request $request): JsonResponse
     {
         return response()->json([
-            'message'       => 'Login success',
-            'data'  => $request->user(),
+            'message' => 'Login success',
+            'data' => $request->user(),
         ]);
     }
 }
