@@ -25,8 +25,8 @@ class CommentUpdateRequest extends DefaultRequest
         $result = [
             'title' => 'required|string|min:2',
             'user_id' =>'required|integer|min:0',
-            'post_id' =>'required|integer|min:0',
-            'like_id' =>'required|integer|min:0',
+            // 'post_id' =>'required|integer|min:0',
+            // 'like_id' =>'required|integer|min:0',
         ];
         return $result;
     }

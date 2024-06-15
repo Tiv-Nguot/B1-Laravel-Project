@@ -11,16 +11,8 @@ class Comment extends Model
     use HasFactory, SoftDeletes;
 
 
-    protected $fillable = ['id', 'title', 'image', 'user_id', 'post_id', 'like_id'];
+    protected $fillable = ['id', 'title', 'image', 'user_id', 'post_id', 'like_id' ];
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
-    public function post()
-    {
-        return $this->belongsTo(Post::class, 'post_id', 'id');
-    }
 
 
     public static function list()

@@ -8,6 +8,7 @@ use App\Http\Requests\Comment\CommentUpdateRequest;
 use App\Http\Resources\CommentResources;
 use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
@@ -23,7 +24,7 @@ class CommentController extends Controller
                 return response()->json(['success' => true, 'data' => $comment], 200);
             }
         }
-        return response()->json(['success' => false, 'Message' => "Not found comment"], 404);
+        return response()->json(['success' => false, 'Message' => "The comment are empty"], 404);
     }
 
     /**
@@ -31,13 +32,14 @@ class CommentController extends Controller
      */
     public function store(CommentCreateRequest $request)
     {
-        // $request->validate([
-        //     'user_id' => 'required',
-        //     'post_id' => 'required',
-        //     'title' => 'required',
-        // ]);
 
-        $comment = Comment::create($request->all());
+        $comment = Comment::create([
+            'title' => $request->title,
+            'image' => $request->image,
+            'user_id' => Auth()->user()->id,
+            'post_id' => Auth()->user()->id,
+            'like_id' => Auth()->user()->id,
+        ]);
         return response()->json(['success' => true, 'data' => $comment], 200);
     }
 
