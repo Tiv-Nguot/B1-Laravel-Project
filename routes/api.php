@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\FriendController;
 use App\Http\Controllers\Api\FriendRequestController;
+use App\Http\Controllers\Api\Auth\ResetPasswordController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -55,3 +56,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment_delete');
 });
    
+Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);
+Route::post('/reset-password', [ResetPasswordController::class, 'reset']);
