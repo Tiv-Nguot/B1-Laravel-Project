@@ -1,10 +1,16 @@
 <?php
 
+use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\LikeAndUnlikeController;
 use App\Http\Controllers\Api\PostController;
-use App\Http\Controllers\AuthController;
 use App\Models\Role;
+use App\Http\Controllers\Api\Auth\ForgotPasswordController;
+use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
+use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Api\FriendController;
+use App\Http\Controllers\Api\FriendRequestController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +24,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('/login', [AuthController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login']);
+Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/sendOtp', [ForgotPasswordController::class, 'sendOtp']);
+Route::post('/logout', [LogoutController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/me', [AuthController::class, 'index'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
+
+    Route::post('add-friend', [FriendRequestController::class, 'addFriendRequest']);
+    Route::post('respond-requester', [FriendRequestController::class, 'respondToFriendRequest']);
+    Route::get('list-requesters', [FriendRequestController::class, 'listRequesters']);
+    Route::get('list-friends', [FriendController::class, 'listFriends']);
+    Route::delete('remove-friend', [FriendController::class, 'removeFriend']);
+
     Route::get('/post/admin/list', [PostController::class, 'adminListPosts']);
     Route::get('/post/user/list', [PostController::class, 'userListPosts']);
     Route::post('/post/create',[PostController::class, 'store']);
@@ -38,3 +54,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/comment/update/{id}', [CommentController::class, 'update'])->name('comment_update');
     Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment_delete');
 });
+   
