@@ -31,4 +31,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/post/user/delete/{id}', [PostController::class, 'userDestroy']);
     Route::get('/post/show/{id}', [PostController::class, 'show']);
     Route::post('/like/unlike',[LikeAndUnlikeController::class,'store'] );
+
+    Route::get('/comment/list', [CommentController::class, 'index'])->name('comment_list');
+    Route::post('/comment/create', [CommentController::class, 'store'])->name('comment_create');
+    Route::get('/comment/show/{id}', [CommentController::class, 'show'])->name('comment_show');
+    Route::put('/comment/update/{id}', [CommentController::class, 'update'])->name('comment_update');
+    Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment_delete');
 });
