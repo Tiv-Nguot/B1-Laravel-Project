@@ -52,6 +52,29 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function sentFriendRequests()
+    {
+        return $this->hasMany(FriendRequest::class, 'requester_id');
+    }
+
+    public function receivedFriendRequests()
+    {
+        return $this->hasMany(FriendRequest::class, 'receiver_id');
+    }
+
+    public function friends()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'user_id1', 'user_id2');
+    }
+
+    public function friendsOf()
+    {
+        return $this->belongsToMany(User::class, 'friends', 'user_id2', 'user_id1');
+    }
+
+
+    
     public static function register($request, $id = null)
     {
         $data = $request->only([
