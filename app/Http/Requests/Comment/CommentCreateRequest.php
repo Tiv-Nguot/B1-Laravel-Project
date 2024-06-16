@@ -23,10 +23,10 @@ class CommentCreateRequest extends DefaultRequest
     public function rules(): array
     {   
         $result = [
-            'title' => 'required|string|min:2',
-            // 'user_id' =>'required|integer|min:0',
-            // 'post_id' =>'required|integer|min:0',
-            // 'like_id' =>'required|integer|min:0',
+            'title' => 'required|string|min:2|max:250',
+            'user_id' =>'required|integer|min:0',
+            'post_id' =>'required|integer|min:0',
+            'like_id' =>'required|integer|min:0',
         ];
         return $result;
     }
