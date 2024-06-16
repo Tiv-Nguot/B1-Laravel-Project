@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Api\FriendController;
 use App\Http\Controllers\Api\FriendRequestController;
 use App\Http\Controllers\Api\Auth\ResetPasswordController;
+use App\Http\Controllers\Api\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/comment/show/{id}', [CommentController::class, 'show'])->name('comment_show');
     Route::put('/comment/update/{id}', [CommentController::class, 'update'])->name('comment_update');
     Route::delete('/comment/delete/{id}', [CommentController::class, 'destroy'])->name('comment_delete');
+    
+    Route::get('/profile', [ProfileController::class, 'myProfile']);
+    Route::post('/profile/upload-image', [ProfileController::class, 'updateImage']);
+
 });
    
 Route::post('/forgot-password', [ForgotPasswordController::class, 'forgotPassword']);

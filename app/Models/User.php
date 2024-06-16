@@ -25,7 +25,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'phone',
         'password',
+        'image_profile',
         'email_verified_at',
         'remember_token',
     ];
@@ -91,4 +93,6 @@ class User extends Authenticatable
 
         return self::updateOrCreate(['id' => $id], $data);
     }
+
+    
 }
