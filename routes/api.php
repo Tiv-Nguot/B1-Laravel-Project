@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\LikeAndUnlikeController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\AuthController;
 use App\Models\Role;
@@ -28,4 +29,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/post/admin/delete/{id}', [PostController::class, 'adminDestroy']);
     Route::delete('/post/user/delete/{id}', [PostController::class, 'userDestroy']);
     Route::get('/post/show/{id}', [PostController::class, 'show']);
+    Route::post('/like/unlike',[LikeAndUnlikeController::class,'store'] );
 });
