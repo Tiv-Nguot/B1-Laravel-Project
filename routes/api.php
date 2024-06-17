@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\LikeAndUnlikeController;
@@ -34,6 +35,11 @@ Route::get('/me', [AuthController::class, 'index'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->group(function () {
 
+    Route::get('/admin/list-users', [AdminController::class, 'adminListUsers']);
+    Route::delete('/admin/delete-user/{id}', [AdminController::class, 'deleteUser']);
+    Route::get('/admin/list-posts', [AdminController::class, 'adminListPosts']);
+    Route::delete('/admin/delete-post/{id}', [AdminController::class, 'deletePost']);
+
     Route::post('add-friend', [FriendRequestController::class, 'addFriendRequest']);
     Route::post('respond-requester', [FriendRequestController::class, 'respondToFriendRequest']);
     Route::get('list-requesters', [FriendRequestController::class, 'listRequesters']);
@@ -45,8 +51,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/post/create',[PostController::class, 'store']);
     Route::put('/post/admin/update/{id}', [PostController::class, 'adminUpdate']);
     Route::put('/post/user/update/{id}', [PostController::class, 'userUpdate']);
-    Route::delete('/post/admin/delete/{id}', [PostController::class, 'adminDestroy']);
-    Route::delete('/post/user/delete/{id}', [PostController::class, 'userDestroy']);
+    Route::delete('/post/user/delete/{id}', [PostController::class, 'adminDestroy']);
+    // Route::delete('/post/user/delete/{id}', [PostController::class, 'userDestroy']);
     Route::get('/post/show/{id}', [PostController::class, 'show']);
     Route::post('/like/unlike',[LikeAndUnlikeController::class,'store'] );
 
